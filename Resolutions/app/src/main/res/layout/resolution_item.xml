@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingRight="10dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/startDate"
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:drawableLeft="@drawable/datetime"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="2015-01-01" />
+
+        <TextView
+            android:id="@+id/endDate"
+            style="@style/label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/startDate"
+            android:drawableLeft="@drawable/datetime"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="2015-01-01" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="0dp"
+        android:text="#competition_name"
+        android:textSize="22dp" />
+</LinearLayout>

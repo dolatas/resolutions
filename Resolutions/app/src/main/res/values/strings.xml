@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Resolutions</string>
+    <string name="action_settings">Settings</string>
+    <string name="title">Tytuł</string>
+    <string name="description">Opis</string>
+    <string name="start_date">Data rozpoczęcia</string>
+    <string name="end_date">Data zakończenia</string>
+    <string name="save">Zapisz</string>
+    <string name="delete">Usuń</string>
+    <string name="cancel">Anuluj</string>
+    <string name="resolution_added">Postanowienie dodadne!</string>
+</resources>
