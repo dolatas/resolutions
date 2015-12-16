@@ -2,9 +2,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Resolutions">
+
+    <item
+        android:id="@+id/action_notifications"
+        android:title="todo"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_add"
+        android:title="add"
+        app:showAsAction="always" />
+
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:icon="@drawable/ic_settings_w"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 </menu>

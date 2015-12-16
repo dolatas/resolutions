@@ -16,6 +16,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +28,7 @@ import java.util.List;
 @EBean
 public class ResolutionDaoImpl implements ResolutionDao {
 
-    private static final SimpleDateFormat SDF = new SimpleDateFormat(Constants.DATE_FORMT_DAY);
+    private static final SimpleDateFormat SDF = new SimpleDateFormat(Constants.DATE_FORMAT_DAY);
     SQLiteDatabase db;
 
     @Bean
@@ -51,25 +52,16 @@ public class ResolutionDaoImpl implements ResolutionDao {
 
     @Override
     public List<Resolution> findAll() {
-        //      TODO
-//        for tests only
-        String[] projection = {
-            Constants.R_ID,
-            Constants.R_TITLE
-        };
-
-// How you want the results sorted in the resulting Cursor
-        String sortOrder =
-            Constants.R_END_DATE + " DESC";
+        String sortOrder = Constants.R_END_DATE + " DESC";
 
         Cursor cursor = db.query(
             Constants.TABLE_RESOLUTION,  // The table to query
-            projection,                               // The columns to return
-            null,                                // The columns for the WHERE clause
-            null,                            // The values for the WHERE clause
-            null,                                     // don't group the rows
-            null,                                     // don't filter by row groups
-            sortOrder                                 // The sort order
+            null,                        // The columns to return
+            null,                        // The columns for the WHERE clause
+            null,                        // The values for the WHERE clause
+            null,                        // don't group the rows
+            null,                        // don't filter by row groups
+            sortOrder                    // The sort order
         );
 
 
@@ -80,19 +72,24 @@ public class ResolutionDaoImpl implements ResolutionDao {
                 Resolution resolution = new Resolution();
                 resolution.setId(cursor.getLong(cursor.getColumnIndex(Constants.R_ID)));
                 resolution.setTitle(cursor.getString(cursor.getColumnIndex(Constants.R_TITLE)));
+                resolution.setDescription(cursor.getString(cursor.getColumnIndex(Constants.R_DESCRIPTION)));
+                try {
+                    String dateHelper = cursor.getString(cursor.getColumnIndex(Constants.R_START_DATE));
+                    if(dateHelper != null && !dateHelper.isEmpty()){
+                        resolution.setStartDate(SDF.parse(dateHelper));
+                    }
+                    dateHelper = cursor.getString(cursor.getColumnIndex(Constants.R_END_DATE));
+                    if(dateHelper != null && !dateHelper.isEmpty()){
+                        resolution.setEndDate(SDF.parse(dateHelper));
+                    }
+                } catch (ParseException e) {
+                    Log.e("Data parsing error", e.getMessage());
+                }
 
                 list.add(resolution);
 
             } while (cursor.moveToNext());
         }
-
-//        for (int i = 0; i < 10; i++) {
-//            Resolution r = new Resolution();
-//            r.setTitle("Postanowienie " + i);
-//            r.setStartDate(new Date());
-//            r.setEndDate(new Date());
-//            list.add(r);
-//        }
 
         return list;
     }
@@ -139,5 +136,14 @@ public class ResolutionDaoImpl implements ResolutionDao {
 
         }
         return rowId;
+    }
+
+    @Override
+    public void delete(Resolution resolution) {
+        if(resolution.getId() != null){
+            String selection = Constants.R_ID + " = ?";
+            String[] selectionArgs = { String.valueOf(resolution.getId()) };
+            db.delete(Constants.TABLE_RESOLUTION, selection, selectionArgs);
+        }
     }
 }

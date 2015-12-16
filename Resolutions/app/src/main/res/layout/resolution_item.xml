@@ -45,4 +45,14 @@
         android:paddingTop="0dp"
         android:text="#competition_name"
         android:textSize="22dp" />
+
+    <TextView
+        android:id="@+id/description"
+        style="@style/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="0dp"
+        android:text="#competition_description"
+        android:textSize="18dp" />
 </LinearLayout>

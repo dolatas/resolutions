@@ -13,7 +13,7 @@
         <activity
             android:name=".Resolutions_"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,15 +21,24 @@
             </intent-filter>
         </activity>
         <activity android:name=".ResolutionDetails_" />
-        <activity android:name=".ResolutionForm_"></activity>
-        <receiver android:name=".Autostart_"
+        <activity android:name=".ResolutionForm_" />
+
+        <receiver
+            android:name=".Autostart_"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
-        <service android:enabled="true" android:name=".NotificationService_" />
+
+        <service
+            android:name=".NotificationService_"
+            android:enabled="true" />
+
+        <activity
+            android:name=".ResolutionList"
+            android:label="@string/title_activity_resolution_list"></activity>
     </application>
 
 </manifest>

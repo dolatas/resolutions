@@ -27,9 +27,12 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_resolutions)
+@OptionsMenu(R.menu.menu_resolutions)
 public class Resolutions extends AppCompatActivity {
 
     @ViewById
@@ -64,40 +67,17 @@ public class Resolutions extends AppCompatActivity {
         bundle.putSerializable("resolution", resolution);
         intent.putExtras(bundle);
         startActivity(intent);
-//        Toast.makeText(this, competition.getName(), Toast.LENGTH_SHORT).show();
     }
 
-    @Click
-    void fab(){
+    @OptionsItem
+    void action_add(MenuItem item) {
 
         Intent intent = new Intent(this, ResolutionForm_.class);
         startActivity(intent);
 
     }
 
-    private void sendNotification(Resolution resolution) {
-        Intent intent = new Intent(this, Resolutions_.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.datetime)
-                .setContentTitle(resolution.getTitle())
-                .setContentText(resolution.getDescription())
-                .setAutoCancel(true)
-                .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
-    }
-
-
-    public boolean isServiceRunning(Class<?> serviceClass) {
+     private boolean isServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {

@@ -11,4 +11,5 @@ public interface ResolutionDao {
     List<Resolution> findAll();
     Resolution getById(Long id);
     Long save(Resolution resolution);
+    void delete(Resolution resolution);
 }

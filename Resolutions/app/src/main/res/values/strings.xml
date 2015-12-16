@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Resolutions</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">Postanowienia</string>
+    <string name="action_settings">Ustawienia</string>
     <string name="title">Tytuł</string>
     <string name="description">Opis</string>
     <string name="start_date">Data rozpoczęcia</string>
@@ -8,5 +8,16 @@
     <string name="save">Zapisz</string>
     <string name="delete">Usuń</string>
     <string name="cancel">Anuluj</string>
-    <string name="resolution_added">Postanowienie dodadne!</string>
+    <string name="resolution_saved">Postanowienie zapisane!</string>
+    <string name="resolution_deleted">Postanowienie usuniete!</string>
+    <string name="title_activity_resolution_list">ResolutionList</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
 </resources>

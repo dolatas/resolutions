@@ -21,12 +21,15 @@ public class ResolutionItemView extends LinearLayout {
     TextView title;
 
     @ViewById
+    TextView description;
+
+    @ViewById
     TextView startDate;
 
     @ViewById
     TextView endDate;
 
-    private static final SimpleDateFormat SDF = new SimpleDateFormat(Constants.DATE_FORMT_DAY);
+    private static final SimpleDateFormat SDF = new SimpleDateFormat(Constants.DATE_FORMAT_DAY);
 
     public ResolutionItemView(Context context) {
         super(context);
@@ -34,6 +37,7 @@ public class ResolutionItemView extends LinearLayout {
 
     public void bind(Resolution resolution) {
         title.setText(resolution.getTitle());
+        description.setText(resolution.getDescription());
         if(resolution.getStartDate() != null) {
             startDate.setText(SDF.format(resolution.getStartDate()));
         }

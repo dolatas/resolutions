@@ -5,7 +5,7 @@ package com.dododev.resolutions.utils;
  */
 public class Constants {
 
-    public static final String DATE_FORMT_DAY = "yyyy-MM-dd";
+    public static final String DATE_FORMAT_DAY = "yyyy-MM-dd";
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "resolutions.db";

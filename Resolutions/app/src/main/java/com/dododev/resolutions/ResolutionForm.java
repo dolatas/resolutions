@@ -1,9 +1,7 @@
 package com.dododev.resolutions;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,7 +15,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.ViewById;
 
 import java.text.ParseException;
@@ -26,7 +23,7 @@ import java.text.SimpleDateFormat;
 @EActivity(R.layout.activity_resolution_form)
 public class ResolutionForm extends Activity {
 
-    private static final SimpleDateFormat SDF = new SimpleDateFormat(Constants.DATE_FORMT_DAY);
+    private static final SimpleDateFormat SDF = new SimpleDateFormat(Constants.DATE_FORMAT_DAY);
     private Resolution resolution;
 
     @Bean(ResolutionDaoImpl.class)
@@ -66,6 +63,20 @@ public class ResolutionForm extends Activity {
 
         Intent intent = new Intent(this, Resolutions_.class);
         startActivity(intent);
-        Toast.makeText(this, getString(R.string.resolution_added), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.resolution_saved), Toast.LENGTH_SHORT).show();
+    }
+
+    @Click
+    void cancel(){
+        Intent intent = new Intent(this, Resolutions_.class);
+        startActivity(intent);
+    }
+
+    @Click
+    void delete(){
+        resolutionDao.delete(resolution);
+        Intent intent = new Intent(this, Resolutions_.class);
+        startActivity(intent);
+        Toast.makeText(this, getString(R.string.resolution_deleted), Toast.LENGTH_SHORT).show();
     }
 }
