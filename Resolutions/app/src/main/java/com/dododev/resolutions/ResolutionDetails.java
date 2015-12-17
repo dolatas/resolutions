@@ -1,6 +1,7 @@
 package com.dododev.resolutions;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import com.dododev.resolutions.model.Resolution;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
@@ -47,5 +49,14 @@ public class ResolutionDetails extends Activity {
                 }
             }
         }
+    }
+
+    @Click
+    void edit(){
+        Intent intent = new Intent(this, ResolutionForm_.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("resolution", resolution);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

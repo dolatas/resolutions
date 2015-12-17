@@ -3,6 +3,7 @@
     package="com.dododev.resolutions">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -23,8 +24,11 @@
         <activity android:name=".ResolutionDetails_" />
         <activity android:name=".ResolutionForm_" />
 
+        <receiver android:name=".SampleAlarmReceiver"></receiver>
+
         <receiver
             android:name=".Autostart_"
+            android:enabled="false"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -35,6 +39,7 @@
         <service
             android:name=".NotificationService_"
             android:enabled="true" />
+        <service android:name=".SampleSchedulingService_" />
 
         <activity
             android:name=".ResolutionList"

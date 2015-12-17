@@ -8,6 +8,7 @@
     <string name="save">Zapisz</string>
     <string name="delete">Usuń</string>
     <string name="cancel">Anuluj</string>
+    <string name="edit">Edytuj</string>
     <string name="resolution_saved">Postanowienie zapisane!</string>
     <string name="resolution_deleted">Postanowienie usuniete!</string>
     <string name="title_activity_resolution_list">ResolutionList</string>
@@ -20,4 +21,5 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_example">Example action</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

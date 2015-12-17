@@ -27,9 +27,5 @@
         <item name="android:layout_marginRight" >2dp</item>
         <item name="android:padding" >3dp</item>
         <item name="android:textSize" >12dp</item>
-        <item name="android:textStyle" >bold</item>
-        <item name="android:shadowColor" >#000000</item>
-        <item name="android:shadowDx" >1</item>
-        <item name="android:shadowDy" >1</item>
     </style>
 </resources>

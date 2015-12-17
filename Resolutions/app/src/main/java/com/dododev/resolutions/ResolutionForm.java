@@ -2,6 +2,7 @@ package com.dododev.resolutions;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -45,11 +46,30 @@ public class ResolutionForm extends Activity {
     void initView() {
         Log.i("Resolution", "ResolutionForm > initView");
 
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            resolution = (Resolution) bundle.getSerializable("resolution");
+
+            if(resolution != null){
+                title.setText(resolution.getTitle());
+                if(resolution.getStartDate() != null) {
+                    startDate.setText(SDF.format(resolution.getStartDate()));
+                }
+                if(resolution.getEndDate() != null) {
+                    endDate.setText(SDF.format(resolution.getEndDate()));
+                }
+            }
+        } else {
+            resolution = null;
+        }
+
     }
 
     @Click
     void save(){
-        resolution = new Resolution();
+        if(resolution == null){
+            resolution = new Resolution();
+        }
         resolution.setTitle(title.getText().toString());
         resolution.setDescription(description.getText().toString());
         try {

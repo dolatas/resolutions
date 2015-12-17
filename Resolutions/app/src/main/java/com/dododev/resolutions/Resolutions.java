@@ -21,6 +21,8 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.dododev.resolutions.model.Resolution;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -35,8 +37,13 @@ import org.androidannotations.annotations.ViewById;
 @OptionsMenu(R.menu.menu_resolutions)
 public class Resolutions extends AppCompatActivity {
 
+    SampleAlarmReceiver alarm = new SampleAlarmReceiver();
+
     @ViewById
     ListView resolutionList;
+
+    @ViewById
+    AdView adView;
 
     @Bean
     ResolutionListAdapter adapter;
@@ -44,20 +51,28 @@ public class Resolutions extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(isServiceRunning(NotificationService_.class)){
-            Log.i("Resolutions", "isServiceRunning > true");
-        } else {
-            Log.i("Resolutions", "isServiceRunning > false");
-            Intent i = new Intent(this, NotificationService_.class);
-            startService(i);
+//        if(isServiceRunning(NotificationService_.class)){
+//            Log.i("Resolutions", "isServiceRunning > true");
+//        } else {
+//            Log.i("Resolutions", "isServiceRunning > false");
+//            Intent i = new Intent(this, NotificationService_.class);
+//            startService(i);
+//        }
+
+//        alarm.cancelAlarm(this);
+        if(!alarm.isAlarmOn(this)){
+            alarm.setAlarm(this);
         }
+
+
     }
 
     @AfterViews
     void initView() {
         Log.i("Resolutions", "Resolutions > initView");
         resolutionList.setAdapter(adapter);
-        //TODO
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
     @ItemClick
