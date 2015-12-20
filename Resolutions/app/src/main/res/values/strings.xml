@@ -9,6 +9,7 @@
     <string name="delete">Usuń</string>
     <string name="cancel">Anuluj</string>
     <string name="edit">Edytuj</string>
+    <string name="change">Zmień</string>
     <string name="resolution_saved">Postanowienie zapisane!</string>
     <string name="resolution_deleted">Postanowienie usuniete!</string>
     <string name="title_activity_resolution_list">ResolutionList</string>

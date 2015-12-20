@@ -10,6 +10,7 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
 import java.util.Calendar;
+import java.util.Random;
 
 /**
  * When the alarm fires, this WakefulBroadcastReceiver receives the broadcast Intent 
@@ -38,13 +39,8 @@ public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        // Set the alarm's trigger time to 8:30 a.m.
-        calendar.add(Calendar.SECOND, 30);
-
-//        calendar.set(Calendar.HOUR_OF_DAY, 23);
-//        calendar.set(Calendar.MINUTE, 53);
-  
-        /* 
+        calendar.add(Calendar.HOUR, 10);
+        /*
          * If you don't have precise time requirements, use an inexact repeating alarm
          * the minimize the drain on the device battery.
          * 
@@ -74,11 +70,13 @@ public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
          *         AlarmManager.INTERVAL_HALF_HOUR, 
          *         AlarmManager.INTERVAL_HALF_HOUR, alarmIntent);
          */
-        
-        // Set the alarm to fire at approximately 8:30 a.m., according to the device's
-        // clock, and to repeat once a day.
+
+
+        Random rand = new Random();
+        int minutesOffset = rand.nextInt((60 - 20) + 1) + 20;
+
         alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-                calendar.getTimeInMillis(), 1000 * 60 * 1, alarmIntent);
+                calendar.getTimeInMillis(), 1000 * 60 * (60 * 10 + minutesOffset), alarmIntent); //10h + minutesOffset
         
         // Enable {@code SampleBootReceiver} to automatically restart the alarm when the
         // device is rebooted.

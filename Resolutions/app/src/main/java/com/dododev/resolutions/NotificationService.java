@@ -79,14 +79,13 @@ public class NotificationService extends Service {
                 contentText = "oraz " + otherResolutionsNo + " innych postanowień";
             }
 
-            Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//            Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                     .setSmallIcon(R.drawable.ic_notification)
                     .setContentTitle(resolution.getTitle())
-//                    .setContentText(resolution.getDescription())
                     .setContentText(contentText)
                     .setAutoCancel(true)
-                    .setSound(defaultSoundUri)
+//                    .setSound(defaultSoundUri)
                     .setContentIntent(pendingIntent);
 
             NotificationManager notificationManager =
