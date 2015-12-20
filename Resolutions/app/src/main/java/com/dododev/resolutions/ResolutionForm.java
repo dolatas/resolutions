@@ -8,35 +8,39 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dododev.resolutions.dao.ResolutionDao;
 import com.dododev.resolutions.dao.impl.ResolutionDaoImpl;
 import com.dododev.resolutions.model.Resolution;
 import com.dododev.resolutions.utils.Constants;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 @EActivity(R.layout.activity_resolution_form)
+@OptionsMenu(R.menu.menu_resolution_form)
 public class ResolutionForm extends Activity { // implements DatePickerDialog.OnDateSetListener {
 
     private static final SimpleDateFormat SDF = new SimpleDateFormat(Constants.DATE_FORMAT_DAY);
     private Resolution resolution;
-    DatePickerDialog.OnDateSetListener startDateListener,endDateListener;
-    int from_year, from_month, from_day,to_year, to_month, to_day; //initialize them to current date in onStart()/onCreate()
-
-    final int DATE_PICKER_TO = 0;
-    final int DATE_PICKER_FROM = 1;
+    private DatePickerDialog.OnDateSetListener startDateListener;
+    private DatePickerDialog.OnDateSetListener endDateListener;
 
     @Bean(ResolutionDaoImpl.class)
     ResolutionDao resolutionDao;
@@ -48,10 +52,16 @@ public class ResolutionForm extends Activity { // implements DatePickerDialog.On
     EditText description;
 
     @ViewById
-    EditText startDate;
+    TextView startDate;
 
     @ViewById
-    EditText endDate;
+    TextView endDate;
+
+    @ViewById
+    AdView adView;
+
+    @ViewById
+    Button delete;
 
     @AfterViews
     void initView() {
@@ -69,21 +79,13 @@ public class ResolutionForm extends Activity { // implements DatePickerDialog.On
                 if(resolution.getEndDate() != null) {
                     endDate.setText(SDF.format(resolution.getEndDate()));
                 }
+                delete.setVisibility(View.VISIBLE);
             }
         } else {
             resolution = null;
+            startDate.setText(SDF.format(new Date()));
+            delete.setVisibility(View.GONE);
         }
-
-
-        Calendar calendar = Calendar.getInstance();
-        from_year = calendar.getGreatestMinimum(Calendar.YEAR);
-        from_month = calendar.getGreatestMinimum(Calendar.MONTH);
-        from_day = calendar.getGreatestMinimum(Calendar.DAY_OF_MONTH);
-        to_year = calendar.getGreatestMinimum(Calendar.YEAR);
-        to_month = calendar.getGreatestMinimum(Calendar.MONTH);
-        to_day = calendar.getGreatestMinimum(Calendar.DAY_OF_MONTH);
-
-
 
         startDateListener = new DatePickerDialog.OnDateSetListener(){
 
@@ -101,6 +103,9 @@ public class ResolutionForm extends Activity { // implements DatePickerDialog.On
                 endDate.setText(SDF.format(c.getTime()));
             }
         };
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
     }
 
@@ -142,10 +147,10 @@ public class ResolutionForm extends Activity { // implements DatePickerDialog.On
     public void showDatePickerDialog(View v) {
         DatePickerFragment newFragment = new DatePickerFragment();
         switch (v.getId()){
-            case R.id.startDate:
+            case R.id.startDateBtn:
                 newFragment.setOnDateListener(startDateListener);
                 break;
-            case R.id.endDate:
+            case R.id.endDateBtn:
                 newFragment.setOnDateListener(endDateListener);
                 break;
         }

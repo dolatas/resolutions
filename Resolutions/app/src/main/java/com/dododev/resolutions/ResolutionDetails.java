@@ -7,6 +7,8 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.dododev.resolutions.model.Resolution;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -30,6 +32,9 @@ public class ResolutionDetails extends Activity {
     @ViewById
     TextView endDate;
 
+    @ViewById
+    AdView adView;
+
     @AfterViews
     void initView() {
         Log.i("Resolutions", "ResolutionDetails > initView");
@@ -49,6 +54,9 @@ public class ResolutionDetails extends Activity {
                 }
             }
         }
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
     @Click

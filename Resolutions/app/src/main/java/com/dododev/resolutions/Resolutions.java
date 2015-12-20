@@ -92,6 +92,14 @@ public class Resolutions extends AppCompatActivity {
 
     }
 
+    @OptionsItem
+    void action_main(MenuItem item) {
+
+        Intent intent = new Intent(this, ResolutionList.class);
+        startActivity(intent);
+
+    }
+
      private boolean isServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
