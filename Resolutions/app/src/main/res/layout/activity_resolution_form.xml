@@ -54,7 +54,7 @@
                 android:gravity="top|left"
                 android:inputType="textMultiLine"
                 android:lines="1"
-                android:maxLines="8">
+                android:maxLines="1">
 
             </EditText>
         </LinearLayout>
@@ -70,27 +70,29 @@
                 android:layout_height="wrap_content"
                 android:text="@string/start_date" />
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/startDateBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/datetime"
-                    android:onClick="showDatePickerDialog"
-                    android:text="@string/change" />
-
-                <TextView
+                <EditText
                     android:id="@+id/startDate"
+                    android:drawableLeft="@drawable/datetime"
+                    android:drawablePadding="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textStyle="bold">
-
-                </TextView>
+                    android:focusable="false"
+                    android:onClick="showDatePickerDialog"
+                    android:textStyle="bold"
+                    android:layout_weight="1">
+                </EditText>
+                <ImageButton
+                    android:id="@+id/clearStartDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/clear"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent" />
             </LinearLayout>
         </LinearLayout>
 
@@ -110,21 +112,24 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/endDateBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/datetime"
-                    android:onClick="showDatePickerDialog"
-                    android:text="@string/change" />
-
-                <TextView
+                <EditText
                     android:id="@+id/endDate"
+                    android:drawableLeft="@drawable/datetime"
+                    android:drawablePadding="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textStyle="bold">
-
-                </TextView>
+                    android:focusable="false"
+                    android:onClick="showDatePickerDialog"
+                    android:textStyle="bold"
+                    android:layout_weight="1">
+                </EditText>
+                <ImageButton
+                    android:id="@+id/clearEndDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/clear"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent" />
             </LinearLayout>
         </LinearLayout>
 

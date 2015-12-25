@@ -3,16 +3,27 @@
     <string name="action_settings">Ustawienia</string>
     <string name="title">Tytuł</string>
     <string name="description">Opis</string>
+    <string name="status">Status</string>
     <string name="start_date">Data rozpoczęcia</string>
     <string name="end_date">Data zakończenia</string>
+    <string name="end_before_start">Data zakończenia nie może być wcześniejsza niż data rozpoczęcia</string>
+    <string name="empty_title">Wprowadź tytuł</string>
     <string name="save">Zapisz</string>
     <string name="delete">Usuń</string>
     <string name="cancel">Anuluj</string>
     <string name="edit">Edytuj</string>
+    <string name="add">Dodaj</string>
     <string name="change">Zmień</string>
+    <string name="no_resolutions_yet">Nie ma żadnych postanowień do wyświetlenia!</string>
     <string name="resolution_saved">Postanowienie zapisane!</string>
     <string name="resolution_deleted">Postanowienie usuniete!</string>
     <string name="title_activity_resolution_list">ResolutionList</string>
+
+    <string name="pending">Oczekujące</string>
+    <string name="ongoing">W trakcie</string>
+    <string name="success">Sukces</string>
+    <string name="failure">Porażka</string>
+    <string name="unknown">Nieznany</string>
 
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>

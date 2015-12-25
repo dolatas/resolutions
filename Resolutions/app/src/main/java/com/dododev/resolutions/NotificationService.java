@@ -14,6 +14,7 @@ import android.util.Log;
 import com.dododev.resolutions.dao.ResolutionDao;
 import com.dododev.resolutions.dao.impl.ResolutionDaoImpl;
 import com.dododev.resolutions.model.Resolution;
+import com.dododev.resolutions.model.ResolutionStatusDict;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EService;
@@ -53,7 +54,8 @@ public class NotificationService extends Service {
     }
 
     private void sendNotification() {
-        List<Resolution> resolutionList = resolutionDao.findAll();
+//        List<Resolution> resolutionList = resolutionDao.findAll();
+        List<Resolution> resolutionList = resolutionDao.findByType(ResolutionStatusDict.ONGOING);
         if(resolutionList != null && !resolutionList.isEmpty()){
             Random rand = new Random();
             //int randomNum = rand.nextInt((max - min) + 1) + min;

@@ -14,6 +14,7 @@ import org.androidannotations.annotations.EReceiver;
 @EReceiver
 public class Autostart extends BroadcastReceiver {
     SampleAlarmReceiver alarm = new SampleAlarmReceiver();
+    SampleUpdateReceiver update = new SampleUpdateReceiver();
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -21,11 +22,8 @@ public class Autostart extends BroadcastReceiver {
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED") ||
             intent.getAction().equals("android.intent.action.QUICKBOOT_POWERON")){
             alarm.setAlarm(context);
+            update.setAlarm(context);
         }
-
-//        Intent i = new Intent(context, NotificationService_.class);
-//        context.startService(i);
-
 
         Log.i("Autostart", "started");
     }

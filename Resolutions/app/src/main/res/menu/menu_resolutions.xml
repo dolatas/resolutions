@@ -3,19 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Resolutions">
 
-    <item
-        android:id="@+id/action_main"
-        android:title="todo"
-        app:showAsAction="always" />
+    <!--<item-->
+        <!--android:id="@+id/action_main"-->
+        <!--android:title="todo"-->
+        <!--app:showAsAction="always" />-->
 
     <item
         android:id="@+id/action_add"
         android:title="add"
+        android:icon="@drawable/add_w"
         app:showAsAction="always" />
 
-    <item
+<!--    <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_settings_w"
         android:title="@string/action_settings"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom" />-->
 </menu>

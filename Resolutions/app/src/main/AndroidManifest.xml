@@ -25,6 +25,7 @@
         <activity android:name=".ResolutionForm_" />
 
         <receiver android:name=".SampleAlarmReceiver"></receiver>
+        <receiver android:name=".SampleUpdateReceiver"></receiver>
 
         <receiver
             android:name=".Autostart_"
@@ -40,6 +41,7 @@
             android:name=".NotificationService_"
             android:enabled="true" />
         <service android:name=".SampleSchedulingService_" />
+        <service android:name=".SampleUpdateService_" />
 
         <activity
             android:name=".ResolutionList"

@@ -10,13 +10,14 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 /**
  * When the alarm fires, this WakefulBroadcastReceiver receives the broadcast Intent 
  * and then starts the IntentService {@code com.dododev.resolutions.SampleSchedulingService} to do some work.
  */
-public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
+public class SampleUpdateReceiver extends WakefulBroadcastReceiver {
     // The app's AlarmManager, which provides access to the system alarm services.
     private AlarmManager alarmMgr;
     // The pending intent that is triggered when the alarm fires.
@@ -25,27 +26,28 @@ public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Log.i("SampleAlarmReceiver", "onReceive");
-        Intent service = new Intent(context, SampleSchedulingService_.class);
+        Log.i("SampleUpdateReceiver", "onReceive");
+        Intent service = new Intent(context, SampleUpdateService_.class);
         startWakefulService(context, service);
     }
 
     public void setAlarm(Context context) {
-        Log.i("SampleAlarmReceiver", "setAlarm");
+        Log.i("SampleUpdateReceiver", "setAlarm");
 
         alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, SampleAlarmReceiver.class);
-        alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        Intent intent = new Intent(context, SampleUpdateReceiver.class);
+        alarmIntent = PendingIntent.getBroadcast(context, 1, intent, 0);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.HOUR, 10);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
 
-        Random rand = new Random();
-        int minutesOffset = rand.nextInt((60 - 20) + 1) + 20;
 
         alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-                calendar.getTimeInMillis(), 1000 * 60 * (60 * 10 + minutesOffset), alarmIntent); //10h + minutesOffset
+                calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
         
         // Enable {@code SampleBootReceiver} to automatically restart the alarm when the
         // device is rebooted.

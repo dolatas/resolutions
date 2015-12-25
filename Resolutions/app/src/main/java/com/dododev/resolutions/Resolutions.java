@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.dododev.resolutions.model.Resolution;
@@ -38,9 +39,13 @@ import org.androidannotations.annotations.ViewById;
 public class Resolutions extends AppCompatActivity {
 
     SampleAlarmReceiver alarm = new SampleAlarmReceiver();
+    SampleUpdateReceiver update = new SampleUpdateReceiver();
 
     @ViewById
     ListView resolutionList;
+
+    @ViewById
+    FrameLayout addLayout;
 
     @ViewById
     AdView adView;
@@ -51,17 +56,12 @@ public class Resolutions extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if(isServiceRunning(NotificationService_.class)){
-//            Log.i("Resolutions", "isServiceRunning > true");
-//        } else {
-//            Log.i("Resolutions", "isServiceRunning > false");
-//            Intent i = new Intent(this, NotificationService_.class);
-//            startService(i);
-//        }
 
-//        alarm.cancelAlarm(this);
         if(!alarm.isAlarmOn(this)){
             alarm.setAlarm(this);
+        }
+        if(!update.isAlarmOn(this)){
+            update.setAlarm(this);
         }
 
 
@@ -73,6 +73,14 @@ public class Resolutions extends AppCompatActivity {
         resolutionList.setAdapter(adapter);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
+
+        if(resolutionList.getCount() > 0){
+            resolutionList.setVisibility(View.VISIBLE);
+            addLayout.setVisibility(View.GONE);
+        } else {
+            addLayout.setVisibility(View.VISIBLE);
+            resolutionList.setVisibility(View.GONE);
+        }
     }
 
     @ItemClick
@@ -86,18 +94,21 @@ public class Resolutions extends AppCompatActivity {
 
     @OptionsItem
     void action_add(MenuItem item) {
-
         Intent intent = new Intent(this, ResolutionForm_.class);
         startActivity(intent);
 
     }
 
-    @OptionsItem
-    void action_main(MenuItem item) {
+//    @OptionsItem
+//    void action_main(MenuItem item) {
+//        Intent intent = new Intent(this, ResolutionList.class);
+//        startActivity(intent);
+//    }
 
-        Intent intent = new Intent(this, ResolutionList.class);
+    @Click
+    void add(){
+        Intent intent = new Intent(this, ResolutionForm_.class);
         startActivity(intent);
-
     }
 
      private boolean isServiceRunning(Class<?> serviceClass) {

@@ -18,6 +18,7 @@ public class Constants {
     public static final String R_START_DATE = "startDate";
     public static final String R_END_DATE = "end_date";
     public static final String R_STATUS = "status";
+    public static final String R_SORT_ORDER = "sort_order";
 
 
     // tables creation sql statements
@@ -28,6 +29,7 @@ public class Constants {
             + R_DESCRIPTION + " text, "
             + R_START_DATE + " text, "
             + R_END_DATE + " text, "
-            + R_STATUS + " text " + "); ";
+            + R_STATUS + " text, "
+            + R_SORT_ORDER + " integer " + "); ";
 
 }
