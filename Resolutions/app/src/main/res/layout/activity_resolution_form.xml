@@ -90,7 +90,10 @@
                     android:id="@+id/clearStartDate"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/clear"
+                    android:src="@drawable/back"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="8dp"
+                    android:layout_marginLeft="8dp"
                     android:visibility="gone"
                     android:background="@android:color/transparent" />
             </LinearLayout>
@@ -127,9 +130,23 @@
                     android:id="@+id/clearEndDate"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/clear"
+                    android:src="@drawable/back"
                     android:visibility="gone"
-                    android:background="@android:color/transparent" />
+                    android:background="@android:color/transparent"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="8dp"
+                    android:layout_marginLeft="8dp" />
+
+                <ImageButton
+                    android:id="@+id/emptyEndDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/clear"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
 

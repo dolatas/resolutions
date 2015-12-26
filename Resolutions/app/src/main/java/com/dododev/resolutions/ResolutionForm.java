@@ -39,7 +39,7 @@ public class ResolutionForm extends Activity { // implements DatePickerDialog.On
     private Resolution resolution;
     private DatePickerDialog.OnDateSetListener startDateListener;
     private DatePickerDialog.OnDateSetListener endDateListener;
-    private String originalStartDate, originalEndDate;
+    private Date originalStartDate, originalEndDate;
 
     @Bean(ResolutionDaoImpl.class)
     ResolutionDao resolutionDao;
@@ -68,6 +68,9 @@ public class ResolutionForm extends Activity { // implements DatePickerDialog.On
     @ViewById
     ImageButton clearEndDate;
 
+    @ViewById
+    ImageButton emptyEndDate;
+
     @AfterViews
     void initView() {
         Log.i("Resolution", "ResolutionForm > initView");
@@ -80,52 +83,61 @@ public class ResolutionForm extends Activity { // implements DatePickerDialog.On
                 title.setText(resolution.getTitle());
                 description.setText(resolution.getDescription());
                 if (resolution.getStartDate() != null) {
-                    originalStartDate = SDF.format(resolution.getStartDate());
-                    startDate.setText(originalStartDate);
+                    originalStartDate = resolution.getStartDate();
+                    startDate.setText(SDF.format(originalStartDate));
                 } else {
-                    originalStartDate = "";
+                    originalStartDate =  new Date();
+                    startDate.setText(SDF.format(new Date()));
                 }
                 if (resolution.getEndDate() != null) {
-                    originalEndDate = SDF.format(resolution.getEndDate());
-                    endDate.setText(originalEndDate);
+                    originalEndDate = resolution.getEndDate();
+                    endDate.setText(SDF.format(originalEndDate));
+                    emptyEndDate.setVisibility(View.VISIBLE);
                 } else {
-                    originalEndDate = "";
+                    originalEndDate = null;
+                    endDate.setText("");
+                    emptyEndDate.setVisibility(View.GONE);
                 }
                 delete.setVisibility(View.VISIBLE);
             }
         } else {
             resolution = null;
-            originalStartDate = SDF.format(new Date());
-            startDate.setText(originalStartDate);
-            originalEndDate = "";
+            originalStartDate = new Date();
+            startDate.setText(SDF.format(new Date()));
+            originalEndDate = null;
             delete.setVisibility(View.GONE);
+            emptyEndDate.setVisibility(View.GONE);
         }
 
         startDateListener = new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                final Calendar c = Calendar.getInstance();
-                c.set(year, monthOfYear, dayOfMonth);
-                startDate.setText(SDF.format(c.getTime()));
-                if (!originalStartDate.equals(SDF.format(c.getTime()))) {
-                    clearStartDate.setVisibility(View.VISIBLE);
-                } else {
-                    clearStartDate.setVisibility(View.GONE);
-                }
-                resolution.setStartDate(c.getTime());
+            final Calendar c = Calendar.getInstance();
+            c.set(year, monthOfYear, dayOfMonth);
+            startDate.setText(SDF.format(c.getTime()));
+            if (originalStartDate == null || !originalStartDate.equals(c.getTime())) {
+                clearStartDate.setVisibility(View.VISIBLE);
+            } else {
+                clearStartDate.setVisibility(View.GONE);
+            }
+            resolution.setStartDate(c.getTime());
             }
         };
 
         endDateListener = new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                final Calendar c = Calendar.getInstance();
-                c.set(year, monthOfYear, dayOfMonth);
-                endDate.setText(SDF.format(c.getTime()));
-                if (!originalEndDate.equals(SDF.format(c.getTime()))) {
-                    clearEndDate.setVisibility(View.VISIBLE);
-                } else {
-                    clearEndDate.setVisibility(View.GONE);
-                }
-                resolution.setEndDate(c.getTime());
+            final Calendar c = Calendar.getInstance();
+            c.set(year, monthOfYear, dayOfMonth);
+            endDate.setText(SDF.format(c.getTime()));
+            if (originalEndDate == null){
+                emptyEndDate.setVisibility(View.VISIBLE);
+                clearEndDate.setVisibility(View.GONE);
+            } else if(!originalEndDate.equals(c.getTime())) {
+                clearEndDate.setVisibility(View.VISIBLE);
+            } else {
+                emptyEndDate.setVisibility(View.VISIBLE);
+                clearEndDate.setVisibility(View.GONE);
+            }
+            resolution.setEndDate(c.getTime());
             }
         };
 
@@ -145,27 +157,21 @@ public class ResolutionForm extends Activity { // implements DatePickerDialog.On
             return;
         }
 
-        resolution.setTitle(title.getText().toString());
-        resolution.setDescription(description.getText().toString());
-
-        Date start = resolution.getStartDate();
-        Date end = resolution.getEndDate();
-
-        if (start == null) {
-            start = new Date();
+        if (resolution.getStartDate() == null) {
+            resolution.setStartDate(new Date());
         }
 
-        if (end != null && end.before(start)) {
+        if (resolution.getEndDate() != null && resolution.getEndDate().before(resolution.getStartDate())) {
             Toast.makeText(this, R.string.end_before_start, Toast.LENGTH_LONG).show();
             return;
         }
 
-        resolution.setStartDate(start);
-        resolution.setEndDate(end);
+        resolution.setTitle(title.getText().toString());
+        resolution.setDescription(description.getText().toString());
 
-        if (start != null && new Date().before(start)) {
+        if (resolution.getStartDate() != null && new Date().before(resolution.getStartDate())) {
             resolution.setStatus(ResolutionStatusDict.PENDING);
-        } else if (end != null && new Date().after(end)) {
+        } else if (resolution.getEndDate() != null && new Date().after(resolution.getEndDate())) {
             resolution.setStatus(ResolutionStatusDict.UNKNOWN);
         } else {
             resolution.setStatus(ResolutionStatusDict.ONGOING);
@@ -216,14 +222,31 @@ public class ResolutionForm extends Activity { // implements DatePickerDialog.On
 
     @Click
     void clearStartDate() {
-        startDate.setText(originalStartDate);
+        startDate.setText(SDF.format(originalStartDate));
+        resolution.setStartDate(originalStartDate);
         clearStartDate.setVisibility(View.GONE);
     }
 
     @Click
     void clearEndDate() {
-        endDate.setText(originalEndDate);
+        endDate.setText(SDF.format(originalEndDate));
+        resolution.setEndDate(originalEndDate);
         clearEndDate.setVisibility(View.GONE);
+        if(originalEndDate != null){
+            emptyEndDate.setVisibility(View.VISIBLE);
+        } else {
+            emptyEndDate.setVisibility(View.GONE);
+        }
+    }
+
+    @Click
+    void emptyEndDate() {
+        resolution.setEndDate(null);
+        endDate.setText("");
+        emptyEndDate.setVisibility(View.GONE);
+        if(originalEndDate != null){
+            clearEndDate.setVisibility(View.VISIBLE);
+        }
     }
 
     public void showDatePickerDialog(View v) {

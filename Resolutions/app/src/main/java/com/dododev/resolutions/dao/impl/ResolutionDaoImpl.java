@@ -185,9 +185,13 @@ public class ResolutionDaoImpl implements ResolutionDao {
         values.put(Constants.R_DESCRIPTION, resolution.getDescription());
         if (resolution.getStartDate() != null) {
             values.put(Constants.R_START_DATE, SDF.format(resolution.getStartDate()));
+        } else {
+            values.put(Constants.R_START_DATE, "");
         }
         if (resolution.getEndDate() != null) {
             values.put(Constants.R_END_DATE, SDF.format(resolution.getEndDate()));
+        } else {
+            values.put(Constants.R_END_DATE, "");
         }
         values.put(Constants.R_STATUS, resolution.getStatus().toString());
         values.put(Constants.R_SORT_ORDER, getSortOrder(resolution.getStatus()));
