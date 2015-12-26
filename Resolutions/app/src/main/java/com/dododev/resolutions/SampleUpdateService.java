@@ -19,6 +19,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EIntentService;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -38,9 +39,16 @@ public class SampleUpdateService extends IntentService {
         // BEGIN_INCLUDE(service_onhandle)
         List<Resolution> resolutionList = resolutionDao.findAll();
         List<Resolution> newOngoingResolutions = new ArrayList<Resolution>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date today = calendar.getTime();
         if(resolutionList != null && !resolutionList.isEmpty()){
             for(Resolution resolution : resolutionList){
-                if(updateStatus(resolution)){ //true if new ongoing
+                if(updateStatus(resolution, today)){ //true if new ongoing
                     newOngoingResolutions.add(resolution);
                 }
             }
@@ -55,21 +63,23 @@ public class SampleUpdateService extends IntentService {
         // END_INCLUDE(service_onhandle)
     }
 
-    private boolean updateStatus(Resolution resolution){
+    private boolean updateStatus(Resolution resolution, Date today){
 
         ResolutionStatusDict newStatus = null;
         boolean newOngoing = false;
-        if(resolution.getStartDate() != null && new Date().before(resolution.getStartDate())){
+        if(resolution.getStartDate() != null && today.before(resolution.getStartDate())){
             newStatus = ResolutionStatusDict.PENDING;
-        } else if(resolution.getEndDate() != null && new Date().after(resolution.getEndDate())) {
+        } else if(resolution.getEndDate() != null && today.after(resolution.getEndDate())) {
             newStatus = ResolutionStatusDict.UNKNOWN;
         } else {
             newStatus = ResolutionStatusDict.ONGOING;
-            newOngoing = true;
         }
         if(newStatus != null && resolution.getStatus()!= null && !resolution.getStatus().equals(newStatus)){
+            resolution.setStatus(newStatus);
             resolutionDao.save(resolution);
-            newOngoing = newOngoing && true;
+            if(newStatus.equals(ResolutionStatusDict.ONGOING)){
+                newOngoing = true;
+            }
         }
 
         return newOngoing;

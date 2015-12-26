@@ -153,25 +153,33 @@ public class ResolutionForm extends Activity { // implements DatePickerDialog.On
     @Click
     void save() {
         if (title.getText().toString().equals("")) {
-            Toast.makeText(this, R.string.empty_title, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.empty_title), Toast.LENGTH_LONG).show();
             return;
         }
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date today = calendar.getTime();
+
         if (resolution.getStartDate() == null) {
-            resolution.setStartDate(new Date());
+            resolution.setStartDate(today);
         }
 
         if (resolution.getEndDate() != null && resolution.getEndDate().before(resolution.getStartDate())) {
-            Toast.makeText(this, R.string.end_before_start, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.end_before_start), Toast.LENGTH_LONG).show();
             return;
         }
 
         resolution.setTitle(title.getText().toString());
         resolution.setDescription(description.getText().toString());
 
-        if (resolution.getStartDate() != null && new Date().before(resolution.getStartDate())) {
+        if (resolution.getStartDate() != null && today.before(resolution.getStartDate())) {
             resolution.setStatus(ResolutionStatusDict.PENDING);
-        } else if (resolution.getEndDate() != null && new Date().after(resolution.getEndDate())) {
+        } else if (resolution.getEndDate() != null && today.after(resolution.getEndDate())) {
             resolution.setStatus(ResolutionStatusDict.UNKNOWN);
         } else {
             resolution.setStatus(ResolutionStatusDict.ONGOING);
@@ -180,31 +188,11 @@ public class ResolutionForm extends Activity { // implements DatePickerDialog.On
 
         resolutionDao.save(resolution);
 
-        //FOR TEST ONLY, COMMENT FOR PUBLISHING!
-//        resolution.setStatus(ResolutionStatusDict.PENDING);
-//        updateStatus(resolution);
-//        Log.i("test", R.string.and + " " + 1 + " " + R.string.one_other);
-
         Intent intent = new Intent(this, Resolutions_.class);
         startActivity(intent);
         Toast.makeText(this, getString(R.string.resolution_saved), Toast.LENGTH_SHORT).show();
     }
 
-    //FOR TEST ONLY, COMMENT FOR PUBLISHING!
-//    private void updateStatus(Resolution resolution) {
-//
-//        ResolutionStatusDict newStatus = null;
-//        if (resolution.getStartDate() != null && new Date().before(resolution.getStartDate())) {
-//            newStatus = ResolutionStatusDict.PENDING;
-//        } else if (resolution.getEndDate() != null && new Date().after(resolution.getEndDate())) {
-//            newStatus = ResolutionStatusDict.UNKNOWN;
-//        } else {
-//            newStatus = ResolutionStatusDict.ONGOING;
-//        }
-//        if (newStatus != null && resolution.getStatus() != null && !resolution.getStatus().equals(newStatus)) {
-//            Log.i("testing status update", "new status: " + newStatus.toString());
-//        }
-//    }
 
     @Click
     void cancel() {

@@ -67,11 +67,11 @@ public class SampleSchedulingService extends IntentService {
             if(otherResolutionsNo == 0){
                 contentText = resolution.getDescription();
             } else if(otherResolutionsNo == 1){
-                contentText = R.string.and + " " + otherResolutionsNo + " " + R.string.one_other;
+                contentText = getString(R.string.and) + " " + otherResolutionsNo + " " + getString(R.string.one_other);
             } else if(otherResolutionsNo <= 4){
-                contentText = R.string.and + " " + otherResolutionsNo + " " + R.string.up_to_four_others;
+                contentText = getString(R.string.and) + " " + otherResolutionsNo + " " + getString(R.string.up_to_four_others);
             } else {
-                contentText = R.string.and + " " + otherResolutionsNo + " " + R.string.more_than_four_others;
+                contentText = getString(R.string.and) + " " + otherResolutionsNo + " " + getString(R.string.more_than_four_others);
             }
 
             Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);

@@ -46,6 +46,10 @@ public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
 
         alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(), 1000 * 60 * (60 * 10 + minutesOffset), alarmIntent); //10h + minutesOffset
+
+        //FOR TEST ONLY
+//        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+//                calendar.getTimeInMillis(), 1000 * 60, alarmIntent); //1min
         
         // Enable {@code SampleBootReceiver} to automatically restart the alarm when the
         // device is rebooted.

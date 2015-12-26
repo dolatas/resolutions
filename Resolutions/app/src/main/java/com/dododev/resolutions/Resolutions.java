@@ -64,7 +64,6 @@ public class Resolutions extends AppCompatActivity {
             update.setAlarm(this);
         }
 
-
     }
 
     @AfterViews
