@@ -15,7 +15,7 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingTop="8dp"
         android:visibility="gone" />
 
     <FrameLayout
@@ -57,5 +57,5 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"></com.google.android.gms.ads.AdView>
+        ads:adUnitId="@string/list_banner_bottom"></com.google.android.gms.ads.AdView>
 </LinearLayout>

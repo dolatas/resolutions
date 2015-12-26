@@ -1,29 +1,38 @@
 <resources>
-    <string name="app_name">Postanowienia</string>
-    <string name="action_settings">Ustawienia</string>
-    <string name="title">Tytuł</string>
-    <string name="description">Opis</string>
+    <string name="app_name">Goals</string>
+    <string name="action_settings">Settings</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
     <string name="status">Status</string>
-    <string name="start_date">Data rozpoczęcia</string>
-    <string name="end_date">Data zakończenia</string>
-    <string name="end_before_start">Data zakończenia nie może być wcześniejsza niż data rozpoczęcia</string>
-    <string name="empty_title">Wprowadź tytuł</string>
-    <string name="save">Zapisz</string>
-    <string name="delete">Usuń</string>
-    <string name="cancel">Anuluj</string>
-    <string name="edit">Edytuj</string>
-    <string name="add">Dodaj</string>
-    <string name="change">Zmień</string>
-    <string name="no_resolutions_yet">Nie ma żadnych postanowień do wyświetlenia!</string>
-    <string name="resolution_saved">Postanowienie zapisane!</string>
-    <string name="resolution_deleted">Postanowienie usuniete!</string>
-    <string name="title_activity_resolution_list">ResolutionList</string>
+    <string name="start_date">Start date</string>
+    <string name="end_date">End date</string>
+    <string name="end_before_start">End date cannot be before start date!</string>
+    <string name="empty_title">Enter a title</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="edit">Edit</string>
+    <string name="add">Add</string>
+    <string name="and">and</string>
+    <string name="one_other">other goal</string>
+    <string name="up_to_four_others">other goals</string>
+    <string name="more_than_four_others">other goals</string>
+    <string name="change">Change</string>
+    <string name="no_resolutions_yet">You don\'t have any goals to show!</string>
+    <string name="resolution_saved">Goal saved!</string>
+    <string name="resolution_deleted">Goal deleted!</string>
+    <string name="title_activity_resolution_list">Goals</string>
+    <string name="do_you_remember">Do you remember?</string>
+    <string name="one_new_ongoing">new goal has been set as of today</string>
+    <string name="up_to_four_new_ongoing">new goals have been set as of today</string>
+    <string name="more_than_four_new_ongoing">new goals have been set as of today</string>
 
-    <string name="pending">Oczekujące</string>
-    <string name="ongoing">W trakcie</string>
-    <string name="success">Sukces</string>
-    <string name="failure">Porażka</string>
-    <string name="unknown">Nieznany</string>
+    <string name="pending">Pending</string>
+    <string name="ongoing">Ongoing</string>
+    <string name="success">Success</string>
+    <string name="failure">Failure</string>
+    <string name="unknown">Finished</string>
+    <!--<string name="unknown">Nieznany</string>-->
 
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
@@ -34,4 +43,7 @@
 
     <string name="action_example">Example action</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="details_banner_bottom">ca-app-pub-8367483319356391/2495494664</string>
+    <string name="form_banner_bottom">ca-app-pub-8367483319356391/1345858660</string>
+    <string name="list_banner_bottom">ca-app-pub-8367483319356391/7065295063</string>
 </resources>

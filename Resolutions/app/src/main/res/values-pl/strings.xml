@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Postanowienia</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="title">Tytuł</string>
+    <string name="description">Opis</string>
+    <string name="status">Status</string>
+    <string name="start_date">Data rozpoczęcia</string>
+    <string name="end_date">Data zakończenia</string>
+    <string name="end_before_start">Data zakończenia nie może być wcześniejsza niż data rozpoczęcia</string>
+    <string name="empty_title">Wprowadź tytuł</string>
+    <string name="save">Zapisz</string>
+    <string name="delete">Usuń</string>
+    <string name="cancel">Anuluj</string>
+    <string name="edit">Edytuj</string>
+    <string name="add">Dodaj</string>
+    <string name="and">oraz</string>
+    <string name="one_other">inne postanowienie</string>
+    <string name="up_to_four_others">inne postanowienia</string>
+    <string name="more_than_four_others">innych postanowień</string>
+    <string name="change">Zmień</string>
+    <string name="no_resolutions_yet">Nie ma żadnych postanowień do wyświetlenia!</string>
+    <string name="resolution_saved">Postanowienie zapisane!</string>
+    <string name="resolution_deleted">Postanowienie usunięte!</string>
+    <string name="title_activity_resolution_list">Lista postanowień</string>
+
+    <string name="pending">Oczekujące</string>
+    <string name="ongoing">W trakcie</string>
+    <string name="success">Sukces</string>
+    <string name="failure">Porażka</string>
+    <string name="unknown">Zakończone</string>
+    <!--<string name="unknown">Nieznany</string>-->
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Przykładowa akcja</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="details_banner_bottom">ca-app-pub-8367483319356391/2495494664</string>
+    <string name="form_banner_bottom">ca-app-pub-8367483319356391/1345858660</string>
+    <string name="list_banner_bottom">ca-app-pub-8367483319356391/7065295063</string>
+    <string name="do_you_remember">Czy pamiętasz o postanowieniach?</string>
+    <string name="more_than_four_new_ongoing">nowe startują od dzisiaj</string>
+    <string name="one_new_ongoing">nowe startuje od dzisiaj</string>
+    <string name="up_to_four_new_ongoing">nowych startuje od dzisiaj</string>
+</resources>

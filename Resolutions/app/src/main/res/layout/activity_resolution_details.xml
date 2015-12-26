@@ -130,6 +130,6 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             ads:adSize="BANNER"
-            ads:adUnitId="@string/banner_ad_unit_id"></com.google.android.gms.ads.AdView>
+            ads:adUnitId="@string/details_banner_bottom"></com.google.android.gms.ads.AdView>
     </LinearLayout>
 </LinearLayout>

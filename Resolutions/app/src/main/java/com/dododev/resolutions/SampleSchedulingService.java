@@ -13,6 +13,7 @@ import android.util.Log;
 import com.dododev.resolutions.dao.ResolutionDao;
 import com.dododev.resolutions.dao.impl.ResolutionDaoImpl;
 import com.dododev.resolutions.model.Resolution;
+import com.dododev.resolutions.model.ResolutionStatusDict;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EIntentService;
@@ -39,7 +40,7 @@ public class SampleSchedulingService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         Log.i("SampleSchedulingService", "onHandleIntent");
         // BEGIN_INCLUDE(service_onhandle)
-        List<Resolution> resolutionList = resolutionDao.findAll();
+        List<Resolution> resolutionList = resolutionDao.findByType(ResolutionStatusDict.ONGOING);
         if(resolutionList != null && !resolutionList.isEmpty()){
             sendNotification(resolutionList);
         }
@@ -61,17 +62,16 @@ public class SampleSchedulingService extends IntentService {
                     PendingIntent.FLAG_ONE_SHOT);
 
 
-
             int otherResolutionsNo = resolutionList.size() - 1;
             String contentText  = null;
             if(otherResolutionsNo == 0){
                 contentText = resolution.getDescription();
             } else if(otherResolutionsNo == 1){
-                contentText = "oraz " + otherResolutionsNo + " inne postanowienie";
+                contentText = R.string.and + " " + otherResolutionsNo + " " + R.string.one_other;
             } else if(otherResolutionsNo <= 4){
-                contentText = "oraz " + otherResolutionsNo + " inne postanowienia";
+                contentText = R.string.and + " " + otherResolutionsNo + " " + R.string.up_to_four_others;
             } else {
-                contentText = "oraz " + otherResolutionsNo + " innych postanowień";
+                contentText = R.string.and + " " + otherResolutionsNo + " " + R.string.more_than_four_others;
             }
 
             Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);

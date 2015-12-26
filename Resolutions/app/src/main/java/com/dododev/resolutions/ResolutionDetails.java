@@ -7,13 +7,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.dododev.resolutions.dao.ResolutionDao;
+import com.dododev.resolutions.dao.impl.ResolutionDaoImpl;
 import com.dododev.resolutions.model.Resolution;
 import com.dododev.resolutions.utils.Constants;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -27,8 +31,14 @@ public class ResolutionDetails extends Activity {
     private static final SimpleDateFormat SDF = new SimpleDateFormat(Constants.DATE_FORMAT_DAY);
     private Resolution resolution;
 
+    @Bean(ResolutionDaoImpl.class)
+    ResolutionDao resolutionDao;
+
     @ViewById
     TextView title;
+
+    @ViewById
+    TextView description;
 
     @ViewById
     TextView startDate;
@@ -46,13 +56,13 @@ public class ResolutionDetails extends Activity {
     void initView() {
         Log.i("Resolutions", "ResolutionDetails > initView");
 
-        //TODO
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             resolution = (Resolution) bundle.getSerializable("resolution");
             
             if(resolution != null){
                 title.setText(resolution.getTitle());
+                description.setText(resolution.getDescription());
                 if(resolution.getStartDate() != null) {
                     startDate.setText(SDF.format(resolution.getStartDate()));
                 }
@@ -71,10 +81,6 @@ public class ResolutionDetails extends Activity {
     }
 
     private void setStatus(Resolution resolution) {
-//        Date current = new Date();
-//        if(resolution.getStartDate().before(current)){
-//
-//        }
 
         switch(resolution.getStatus()){
             case PENDING:
@@ -107,5 +113,14 @@ public class ResolutionDetails extends Activity {
         bundle.putSerializable("resolution", resolution);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+
+    @Click
+    void delete() {
+        resolutionDao.delete(resolution);
+        Intent intent = new Intent(this, Resolutions_.class);
+        startActivity(intent);
+        Toast.makeText(this, getString(R.string.resolution_deleted), Toast.LENGTH_SHORT).show();
     }
 }
