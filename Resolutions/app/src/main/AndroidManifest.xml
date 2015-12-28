@@ -23,12 +23,13 @@
         </activity>
         <activity android:name=".ResolutionDetails_" />
         <activity android:name=".ResolutionForm_" />
+        <activity android:name=".SettingsActivity_" />
 
-        <receiver android:name=".SampleAlarmReceiver"></receiver>
-        <receiver android:name=".SampleUpdateReceiver"></receiver>
+        <receiver android:name=".receivers.SampleAlarmReceiver"></receiver>
+        <receiver android:name=".receivers.SampleUpdateReceiver"></receiver>
 
         <receiver
-            android:name=".Autostart_"
+            android:name=".receivers.Autostart_"
             android:enabled="false"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
@@ -38,10 +39,10 @@
         </receiver>
 
         <service
-            android:name=".NotificationService_"
+            android:name=".services.NotificationService_"
             android:enabled="true" />
-        <service android:name=".SampleSchedulingService_" />
-        <service android:name=".SampleUpdateService_" />
+        <service android:name=".services.SampleSchedulingService_" />
+        <service android:name=".services.SampleUpdateService_" />
 
         <activity
             android:name=".ResolutionList"

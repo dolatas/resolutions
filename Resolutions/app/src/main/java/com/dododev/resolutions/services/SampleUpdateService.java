@@ -1,22 +1,25 @@
-package com.dododev.resolutions;
+package com.dododev.resolutions.services;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.dododev.resolutions.R;
+import com.dododev.resolutions.Resolutions_;
 import com.dododev.resolutions.dao.ResolutionDao;
 import com.dododev.resolutions.dao.impl.ResolutionDaoImpl;
 import com.dododev.resolutions.model.Resolution;
 import com.dododev.resolutions.model.ResolutionStatusDict;
+import com.dododev.resolutions.model.Settings_;
+import com.dododev.resolutions.receivers.SampleAlarmReceiver;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EIntentService;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,6 +35,9 @@ public class SampleUpdateService extends IntentService {
 
     @Bean(ResolutionDaoImpl.class)
     ResolutionDao resolutionDao;
+
+    @Pref
+    Settings_ settings;
 
     @Override
     protected void onHandleIntent(Intent intent) {

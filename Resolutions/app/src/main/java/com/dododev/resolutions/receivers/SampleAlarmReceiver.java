@@ -1,4 +1,4 @@
-package com.dododev.resolutions;
+package com.dododev.resolutions.receivers;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -9,12 +9,15 @@ import android.content.pm.PackageManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
+import com.dododev.resolutions.receivers.Autostart_;
+import com.dododev.resolutions.services.SampleSchedulingService_;
+
 import java.util.Calendar;
 import java.util.Random;
 
 /**
  * When the alarm fires, this WakefulBroadcastReceiver receives the broadcast Intent 
- * and then starts the IntentService {@code com.dododev.resolutions.SampleSchedulingService} to do some work.
+ * and then starts the IntentService {@code com.dododev.resolutions.services.SampleSchedulingService} to do some work.
  */
 public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
     // The app's AlarmManager, which provides access to the system alarm services.

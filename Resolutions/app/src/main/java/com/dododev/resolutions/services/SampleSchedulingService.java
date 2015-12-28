@@ -1,62 +1,58 @@
-package com.dododev.resolutions;
+package com.dododev.resolutions.services;
 
+import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.dododev.resolutions.R;
+import com.dododev.resolutions.Resolutions_;
 import com.dododev.resolutions.dao.ResolutionDao;
 import com.dododev.resolutions.dao.impl.ResolutionDaoImpl;
 import com.dododev.resolutions.model.Resolution;
 import com.dododev.resolutions.model.ResolutionStatusDict;
+import com.dododev.resolutions.model.Settings_;
+import com.dododev.resolutions.receivers.SampleAlarmReceiver;
 
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EService;
+import org.androidannotations.annotations.EIntentService;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by dodo on 2015-12-15.
- */
-@EService
-public class NotificationService extends Service {
-
-    private static final String TAG = "NotificationService";
+@EIntentService
+public class SampleSchedulingService extends IntentService {
+    public SampleSchedulingService() {
+        super("SchedulingService");
+    }
 
     @Bean(ResolutionDaoImpl.class)
     ResolutionDao resolutionDao;
 
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-    public void onDestroy() {
-        Log.d(TAG, "onDestroy");
-    }
+    @Pref
+    Settings_ settings;
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId)
-    {
-        Intent intents = new Intent(getBaseContext(), Resolutions_.class);
-        intents.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intents);
-//        Toast.makeText(this, "NotificationService Started", Toast.LENGTH_LONG).show();
-        sendNotification();
-        Log.d(TAG, "onStart");
-        return 1;
-    }
-
-    private void sendNotification() {
-//        List<Resolution> resolutionList = resolutionDao.findAll();
+    protected void onHandleIntent(Intent intent) {
+        Log.i("SampleSchedulingService", "onHandleIntent");
+        // BEGIN_INCLUDE(service_onhandle)
         List<Resolution> resolutionList = resolutionDao.findByType(ResolutionStatusDict.ONGOING);
         if(resolutionList != null && !resolutionList.isEmpty()){
+            sendNotification(resolutionList);
+        }
+        // Release the wake lock provided by the BroadcastReceiver.
+        SampleAlarmReceiver.completeWakefulIntent(intent);
+        // END_INCLUDE(service_onhandle)
+    }
+
+    private void sendNotification(List<Resolution> resolutionList) {
+
             Random rand = new Random();
             //int randomNum = rand.nextInt((max - min) + 1) + min;
             int randomNum = rand.nextInt((resolutionList.size() - 1 - 0) + 1) + 0;
@@ -68,26 +64,25 @@ public class NotificationService extends Service {
                     PendingIntent.FLAG_ONE_SHOT);
 
 
-
             int otherResolutionsNo = resolutionList.size() - 1;
             String contentText  = null;
             if(otherResolutionsNo == 0){
                 contentText = resolution.getDescription();
             } else if(otherResolutionsNo == 1){
-                contentText = "oraz " + otherResolutionsNo + " inne postanowienie";
+                contentText = getString(R.string.and) + " " + otherResolutionsNo + " " + getString(R.string.one_other);
             } else if(otherResolutionsNo <= 4){
-                contentText = "oraz " + otherResolutionsNo + " inne postanowienia";
+                contentText = getString(R.string.and) + " " + otherResolutionsNo + " " + getString(R.string.up_to_four_others);
             } else {
-                contentText = "oraz " + otherResolutionsNo + " innych postanowień";
+                contentText = getString(R.string.and) + " " + otherResolutionsNo + " " + getString(R.string.more_than_four_others);
             }
 
-//            Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                     .setSmallIcon(R.drawable.ic_notification)
                     .setContentTitle(resolution.getTitle())
                     .setContentText(contentText)
                     .setAutoCancel(true)
-//                    .setSound(defaultSoundUri)
+                    .setSound(defaultSoundUri)
                     .setContentIntent(pendingIntent);
 
             NotificationManager notificationManager =
@@ -95,6 +90,6 @@ public class NotificationService extends Service {
 
             notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
 
-        }
     }
+
 }
