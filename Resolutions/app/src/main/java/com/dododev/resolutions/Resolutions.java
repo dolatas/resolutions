@@ -49,6 +49,11 @@ public class Resolutions extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        boolean resetAlarm = getIntent().getBooleanExtra("resetAlarm", false);
+        if(resetAlarm){
+            alarm.cancelAlarm(this);
+        }
+
         if(!alarm.isAlarmOn(this)){
             alarm.setAlarm(this);
         }
@@ -86,6 +91,13 @@ public class Resolutions extends AppCompatActivity {
     @OptionsItem
     void action_add(MenuItem item) {
         Intent intent = new Intent(this, ResolutionForm_.class);
+        startActivity(intent);
+
+    }
+
+    @OptionsItem
+    void action_settings(MenuItem item) {
+        Intent intent = new Intent(this, SettingsActivity_.class);
         startActivity(intent);
 
     }

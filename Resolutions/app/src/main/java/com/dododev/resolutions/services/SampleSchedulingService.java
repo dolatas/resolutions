@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
@@ -16,6 +17,7 @@ import com.dododev.resolutions.dao.ResolutionDao;
 import com.dododev.resolutions.dao.impl.ResolutionDaoImpl;
 import com.dododev.resolutions.model.Resolution;
 import com.dododev.resolutions.model.ResolutionStatusDict;
+import com.dododev.resolutions.model.Settings;
 import com.dododev.resolutions.model.Settings_;
 import com.dododev.resolutions.receivers.SampleAlarmReceiver;
 
@@ -34,9 +36,6 @@ public class SampleSchedulingService extends IntentService {
 
     @Bean(ResolutionDaoImpl.class)
     ResolutionDao resolutionDao;
-
-    @Pref
-    Settings_ settings;
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -76,14 +75,20 @@ public class SampleSchedulingService extends IntentService {
                 contentText = getString(R.string.and) + " " + otherResolutionsNo + " " + getString(R.string.more_than_four_others);
             }
 
-            Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                     .setSmallIcon(R.drawable.ic_notification)
                     .setContentTitle(resolution.getTitle())
                     .setContentText(contentText)
                     .setAutoCancel(true)
-                    .setSound(defaultSoundUri)
                     .setContentIntent(pendingIntent);
+
+            SharedPreferences prefs = this.getSharedPreferences("SettingsActivity__Settings", Context.MODE_PRIVATE);
+            boolean playNotificationSound = prefs.getBoolean("playNotificationSound", true);
+            Log.d("SampleSchedulingService", "playNotificationSound=" + playNotificationSound);
+            if(playNotificationSound){
+                Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                notificationBuilder.setSound(defaultSoundUri);
+            }
 
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

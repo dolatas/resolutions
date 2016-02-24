@@ -36,7 +36,6 @@
         android:layout_marginTop="-4dp"
         android:text="#competition_description\n"
         android:textColor="#434343"
-        android:lines="1"
         android:textSize="12dp" />
     </LinearLayout>
 </LinearLayout>

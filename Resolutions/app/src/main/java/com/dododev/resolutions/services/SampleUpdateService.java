@@ -14,7 +14,6 @@ import com.dododev.resolutions.dao.ResolutionDao;
 import com.dododev.resolutions.dao.impl.ResolutionDaoImpl;
 import com.dododev.resolutions.model.Resolution;
 import com.dododev.resolutions.model.ResolutionStatusDict;
-import com.dododev.resolutions.model.Settings_;
 import com.dododev.resolutions.receivers.SampleAlarmReceiver;
 
 import org.androidannotations.annotations.Bean;
@@ -35,9 +34,6 @@ public class SampleUpdateService extends IntentService {
 
     @Bean(ResolutionDaoImpl.class)
     ResolutionDao resolutionDao;
-
-    @Pref
-    Settings_ settings;
 
     @Override
     protected void onHandleIntent(Intent intent) {

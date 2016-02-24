@@ -1,9 +1,11 @@
 package com.dododev.resolutions.model;
 
 import org.androidannotations.annotations.sharedpreferences.DefaultBoolean;
+import org.androidannotations.annotations.sharedpreferences.DefaultInt;
 import org.androidannotations.annotations.sharedpreferences.DefaultString;
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,4 +30,11 @@ public interface Settings {
 
     @DefaultBoolean(false)
     boolean displayFailure();
+
+    @DefaultInt(12)
+    int notificationTimeHour();
+
+    @DefaultInt(0)
+    int notificationTimeMinute();
+
 }

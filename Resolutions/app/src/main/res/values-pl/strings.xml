@@ -46,4 +46,11 @@
     <string name="more_than_four_new_ongoing">nowe startują od dzisiaj</string>
     <string name="one_new_ongoing">nowe startuje od dzisiaj</string>
     <string name="up_to_four_new_ongoing">nowych startuje od dzisiaj</string>
+    <string name="hide">Ukryj</string>
+    <string name="notification_time">Przybliżony czas powiadomienia</string>
+    <string name="off">Wylączony</string>
+    <string name="on">Włączony</string>
+    <string name="play_notification_sound">Dźwięk powiadomienia</string>
+    <string name="settings_saved">Ustawienia zapisane</string>
+    <string name="show">Pokaż</string>
 </resources>

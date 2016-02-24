@@ -5,10 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.dododev.resolutions.receivers.SampleAlarmReceiver;
-import com.dododev.resolutions.receivers.SampleUpdateReceiver;
-
 import org.androidannotations.annotations.EReceiver;
+
 
 /**
  * Created by dodo on 2015-12-15.

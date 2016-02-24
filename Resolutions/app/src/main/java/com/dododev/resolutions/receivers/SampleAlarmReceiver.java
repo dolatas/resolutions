@@ -5,26 +5,27 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
-import com.dododev.resolutions.receivers.Autostart_;
+import com.dododev.resolutions.model.Settings_;
 import com.dododev.resolutions.services.SampleSchedulingService_;
 
+import org.androidannotations.annotations.EReceiver;
+import org.androidannotations.annotations.sharedpreferences.Pref;
+
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
-/**
- * When the alarm fires, this WakefulBroadcastReceiver receives the broadcast Intent 
- * and then starts the IntentService {@code com.dododev.resolutions.services.SampleSchedulingService} to do some work.
- */
 public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
     // The app's AlarmManager, which provides access to the system alarm services.
     private AlarmManager alarmMgr;
     // The pending intent that is triggered when the alarm fires.
     private PendingIntent alarmIntent;
-  
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -40,20 +41,24 @@ public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
         Intent intent = new Intent(context, SampleAlarmReceiver.class);
         alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
+        SharedPreferences prefs = context.getSharedPreferences("SettingsActivity__Settings", Context.MODE_PRIVATE);
+        int notificationTimeHour = prefs.getInt("notificationTimeHour", 12);
+        int notificationTimeMinute = prefs.getInt("notificationTimeMinute", 0);
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.HOUR, 10);
+//        calendar.add(Calendar.DATE, 1);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, notificationTimeMinute);
+        calendar.set(Calendar.HOUR_OF_DAY, notificationTimeHour);
 
-        Random rand = new Random();
-        int minutesOffset = rand.nextInt((60 - 20) + 1) + 20;
+        alarmMgr. setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
 
-        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-                calendar.getTimeInMillis(), 1000 * 60 * (60 * 10 + minutesOffset), alarmIntent); //10h + minutesOffset
+//        alarmMgr. setRepeating(AlarmManager.RTC_WAKEUP,
+//                calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
 
-        //FOR TEST ONLY
-//        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-//                calendar.getTimeInMillis(), 1000 * 60, alarmIntent); //1min
-        
         // Enable {@code SampleBootReceiver} to automatically restart the alarm when the
         // device is rebooted.
         ComponentName receiver = new ComponentName(context, Autostart_.class);
@@ -90,4 +95,5 @@ public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
     public boolean isAlarmOn(Context context) {
         return alarmMgr!= null;
     }
+
 }

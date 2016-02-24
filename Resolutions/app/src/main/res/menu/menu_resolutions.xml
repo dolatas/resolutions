@@ -9,14 +9,15 @@
         <!--app:showAsAction="always" />-->
 
     <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_settings_w"
+        android:title="@string/action_settings"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_add"
         android:title="add"
         android:icon="@drawable/add_w"
         app:showAsAction="always" />
 
-<!--    <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/ic_settings_w"
-        android:title="@string/action_settings"
-        app:showAsAction="ifRoom" />-->
 </menu>

@@ -27,10 +27,12 @@
     <string name="up_to_four_new_ongoing">new goals have been set as of today</string>
     <string name="more_than_four_new_ongoing">new goals have been set as of today</string>
     <string name="play_notification_sound">Notification sound</string>
+    <string name="notification_time">Approximate notification time</string>
     <string name="on">On</string>
     <string name="off">Off</string>
     <string name="show">Show</string>
     <string name="hide">Hide</string>
+    <string name="settings_saved">Settings has been saved</string>
 
 
     <string name="pending">Pending</string>
